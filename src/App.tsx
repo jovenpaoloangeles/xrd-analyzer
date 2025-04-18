@@ -14,7 +14,7 @@ import About from './components/About';
 import { XRDData, ProcessedData, DataSet, ProcessingParams } from './types';
 import { subtractBackground, smoothData, findPeaks } from './utils/dataProcessing';
 import { matchPeaks, PeakMatch } from './utils/peakMatching';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 
 
 const defaultProcessingParams: ProcessingParams = {
@@ -110,7 +110,7 @@ function App() {
   return (
     <NotificationProvider>
       <GlobalNotification />
-      <BrowserRouter basename="/xrd-analyzer">
+      <HashRouter>
       <div className="bg-background min-h-screen">
         <Navbar />
         <Routes>
@@ -244,7 +244,7 @@ function App() {
           <Route path="/about" element={<About />} />
         </Routes>
       </div>
-      </BrowserRouter>
+      </HashRouter>
     </NotificationProvider>
   );
 }
