@@ -2,7 +2,7 @@ import React from "react";
 import { Alert } from "./ui/alert";
 import { useNotification } from "./NotificationContext";
 
-const typeToVariant = {
+const typeToVariant: Record<string, "default" | "destructive" | null | undefined> = {
   success: undefined,
   info: undefined,
   error: "destructive",

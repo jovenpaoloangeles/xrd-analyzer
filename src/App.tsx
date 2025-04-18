@@ -10,29 +10,41 @@ import { XRDChartPlotly } from "./components/XRDChartPlotly";
 import { ProcessingControls } from './components/ProcessingControls';
 import { NotificationProvider } from './components/NotificationContext';
 import { GlobalNotification } from './components/GlobalNotification';
+import About from './components/About';
 import { XRDData, ProcessedData, DataSet, ProcessingParams } from './types';
 import { subtractBackground, smoothData, findPeaks } from './utils/dataProcessing';
 import { matchPeaks, PeakMatch } from './utils/peakMatching';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 
 const defaultProcessingParams: ProcessingParams = {
-  smoothing: { enabled: true, windowSize: 5, polynomialOrder: 2 },
-  background: { enabled: true, method: 'sliding', windowSize: 20, iterations: 3 },
+  smoothing: { enabled: false, windowSize: 5, polynomialOrder: 2 },
+  background: { enabled: false, method: 'sliding', windowSize: 20, iterations: 3 },
   peaks: {
     minHeight: 0.1,
     minDistance: 0.5,
     minProminence: 10,
     instrumentBroadening: 0.1,
     wavelength: 1.5406,
-    useMinHeight: true,
-    useMinDistance: true,
+    useMinHeight: false,
+    useMinDistance: false,
     useMinProminence: false,
   },
 };
 
-const generateColor = () => {
-  const colors = ['#4C72B0', '#55A868', '#C44E52', '#8172B3', '#CCB974', '#64B5CD', '#4C72B0', '#55A868'];
-  return colors[Math.floor(Math.random() * colors.length)];
+// Paul Tol's bright color-blind safe palette
+const tolBrightPalette = [
+  '#4477AA', // blue
+  '#EE6677', // red
+  '#228833', // green
+  '#CCBB44', // yellow
+  '#66CCEE', // cyan
+  '#AA3377', // purple
+  '#BBBBBB', // grey
+];
+
+const generateColor = (index: number) => {
+  return tolBrightPalette[index % tolBrightPalette.length];
 };
 
 import { Loader2 } from 'lucide-react';
@@ -61,7 +73,7 @@ function App() {
           id: `${type}-${Date.now()}`,
           name,
           type,
-          color: generateColor(),
+          color: generateColor(prev.length),
           data: processedData,
           peaks: detectedPeaks,
           visible: true,
@@ -98,9 +110,14 @@ function App() {
   return (
     <NotificationProvider>
       <GlobalNotification />
+      <BrowserRouter>
       <div className="bg-background min-h-screen">
         <Navbar />
-        <div className="max-w-[1400px] mx-auto my-8 p-4 md:p-8">
+        <Routes>
+          <Route path="/" element={
+            <div className="max-w-[1400px] mx-auto my-8 p-4 md:p-8">
+              {/* Home/Main content starts here */}
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="md:col-span-2">
               <div className="flex items-center mb-2">
@@ -222,8 +239,12 @@ function App() {
               </Card>
             </div>
           </div>
-        </div>
+        </div>}
+          />
+          <Route path="/about" element={<About />} />
+        </Routes>
       </div>
+      </BrowserRouter>
     </NotificationProvider>
   );
 }

@@ -1,6 +1,5 @@
 import React from 'react';
 import Plot from 'react-plotly.js';
-import Plotly from 'plotly.js-basic-dist';
 import { DataSet } from '../types';
 
 import { PeakMatch } from '../utils/peakMatching';
@@ -11,39 +10,54 @@ interface XRDChartPlotlyProps {
 }
 
 export const XRDChartPlotly: React.FC<XRDChartPlotlyProps> = ({ datasets, peakMatches }) => {
+  // Using dataset colors assigned in App.tsx (Paul Tol's color-blind safe palette)
   // Prepare traces for each dataset
   // Use generic object typing for Plotly traces to avoid type errors
-  const traces: Array<Partial<Record<string, any>>> = datasets.flatMap(dataset => {
-    if (!dataset.visible) return [];
+  // Create traces array for all datasets and their peaks
+  const traces: Array<Partial<Record<string, any>>> = [];
+  
+  // Process each dataset and immediately add its peaks
+  datasets.forEach((dataset, index) => {
+    // Use the dataset's original color
+    const color = dataset.color;
+    if (!dataset.visible) return;
+    
     const x = dataset.data.map(d => d.angle);
     const y = dataset.data.map(d => d.backgroundSubtracted ?? d.intensity);
-    const tracesForDataset = [{
+    
+    // Create a unique group name for this dataset and its peaks
+    const groupName = `dataset-${index}`;
+    
+    // Add the dataset line trace
+    traces.push({
       x,
       y,
       type: 'scatter',
       mode: 'lines',
       name: dataset.name,
-      line: { color: dataset.color, width: 2 },
-    } as any];
-    // Add detected peaks as markers for this dataset
+      legendgroup: groupName,
+      line: { color, width: 1 },
+    } as any);
+    
+    // Immediately add peaks trace if available (to keep them adjacent in the legend)
     if (dataset.peaks && dataset.peaks.length > 0) {
-      tracesForDataset.push({
+      traces.push({
         x: dataset.peaks.map(p => p.angle),
         y: dataset.peaks.map(p => p.intensity),
         mode: 'markers',
         type: 'scatter',
-        name: `${dataset.name} Peaks`,
+        name: 'Peaks',
+        legendgroup: groupName,
         marker: {
-          color: dataset.color,
-          size: 10,
+          color,
+          size: 8,
           symbol: 'circle',
-          line: { color: 'black', width: 1 },
+          line: { color: 'black', width: 0 },
         },
         hoverinfo: 'text',
         text: dataset.peaks.map((p, i) => `Peak ${i + 1}: ${p.angle.toFixed(2)}°<br>Intensity: ${p.intensity.toFixed(0)}`),
       } as any);
     }
-    return tracesForDataset;
   });
 
   // Add matched peaks as markers (if any)
@@ -56,9 +70,9 @@ export const XRDChartPlotly: React.FC<XRDChartPlotlyProps> = ({ datasets, peakMa
       name: 'Matched Peaks',
       marker: {
         color: 'red',
-        size: 14,
+        size: 8,
         symbol: 'star',
-        line: { color: 'black', width: 2 },
+        line: { color: 'black', width: 0 },
       },
       hoverinfo: 'text',
       text: peakMatches.map(m => `Sample: ${m.sampleDataset}<br>Ref: ${m.referenceDataset}<br>Δ: ${m.delta.toFixed(3)}°`),
@@ -69,7 +83,18 @@ export const XRDChartPlotly: React.FC<XRDChartPlotlyProps> = ({ datasets, peakMa
     title: 'XRD Pattern Analysis',
     xaxis: { title: '2θ (degrees)' },
     yaxis: { title: 'Intensity (a.u.)' },
-    legend: { orientation: "h" as const, x: 0.5, xanchor: "center" as const, y: 1.1 },
+    legend: { 
+      orientation: "h" as const, 
+      x: 0.5, 
+      xanchor: "center" as const, 
+      y: 1.15, 
+      yanchor: "bottom" as const,
+      traceorder: "grouped" as const,
+      itemsizing: "constant" as const,
+      itemwidth: 30,
+      groupgap: 40,
+      tracegroupgap: 5
+    },
     autosize: true,
     margin: { t: 50, l: 50, r: 30, b: 50 },
     plot_bgcolor: 'white',

@@ -1,5 +1,7 @@
 import React from 'react';
 import { ProcessingParams } from '../types';
+import { HelpCircle } from 'lucide-react';
+import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "./ui/tooltip";
 
 interface ProcessingControlsProps {
   params: ProcessingParams;
@@ -22,7 +24,8 @@ export const ProcessingControls: React.FC<ProcessingControlsProps> = ({
   };
 
   return (
-    <div className="space-y-6 p-4 bg-white rounded-md shadow-sm max-w-full sm:max-w-lg mx-auto">
+    <TooltipProvider>
+      <div className="space-y-6 p-4 bg-white rounded-md shadow-sm max-w-full sm:max-w-lg mx-auto">
       <div>
         <h3 className="text-lg font-medium text-gray-900">Processing Parameters</h3>
         <div className="mt-4 space-y-4">
@@ -40,7 +43,17 @@ export const ProcessingControls: React.FC<ProcessingControlsProps> = ({
               {params.smoothing.enabled && (
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm text-gray-600">Window Size</label>
+                    <label className="block text-sm text-gray-600 flex items-center gap-1">
+  Window Size
+  <Tooltip>
+    <TooltipTrigger asChild>
+      <span tabIndex={0} className="ml-1 cursor-pointer text-gray-400 hover:text-gray-600">
+        <HelpCircle size={16} />
+      </span>
+    </TooltipTrigger>
+    <TooltipContent>Number of points used for smoothing window.</TooltipContent>
+  </Tooltip>
+</label>
                     <input
                       type="number"
                       value={params.smoothing.windowSize}
@@ -49,7 +62,17 @@ export const ProcessingControls: React.FC<ProcessingControlsProps> = ({
                     />
                   </div>
                   <div>
-                    <label className="block text-sm text-gray-600">Polynomial Order</label>
+                    <label className="block text-sm text-gray-600 flex items-center gap-1">
+  Polynomial Order
+  <Tooltip>
+    <TooltipTrigger asChild>
+      <span tabIndex={0} className="ml-1 cursor-pointer text-gray-400 hover:text-gray-600">
+        <HelpCircle size={16} />
+      </span>
+    </TooltipTrigger>
+    <TooltipContent>Order of the polynomial used for Savitzky-Golay smoothing.</TooltipContent>
+  </Tooltip>
+</label>
                     <input
                       type="number"
                       value={params.smoothing.polynomialOrder}
@@ -87,7 +110,17 @@ export const ProcessingControls: React.FC<ProcessingControlsProps> = ({
 
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm text-gray-600">Window Size</label>
+                      <label className="block text-sm text-gray-600 flex items-center gap-1">
+  Window Size
+  <Tooltip>
+    <TooltipTrigger asChild>
+      <span tabIndex={0} className="ml-1 cursor-pointer text-gray-400 hover:text-gray-600">
+        <HelpCircle size={16} />
+      </span>
+    </TooltipTrigger>
+    <TooltipContent>Number of points used for smoothing window.</TooltipContent>
+  </Tooltip>
+</label>
                       <input
                         type="number"
                         value={params.background.windowSize}
@@ -97,7 +130,17 @@ export const ProcessingControls: React.FC<ProcessingControlsProps> = ({
                     </div>
                     {params.background.method === 'rollingBall' && (
                       <div>
-                        <label className="block text-sm text-gray-600">Iterations</label>
+                        <label className="block text-sm text-gray-600 flex items-center gap-1">
+  Iterations
+  <Tooltip>
+    <TooltipTrigger asChild>
+      <span tabIndex={0} className="ml-1 cursor-pointer text-gray-400 hover:text-gray-600">
+        <HelpCircle size={16} />
+      </span>
+    </TooltipTrigger>
+    <TooltipContent>Number of times the rolling ball algorithm is applied.</TooltipContent>
+  </Tooltip>
+</label>
                         <input
                           type="number"
                           value={params.background.iterations}
@@ -114,18 +157,27 @@ export const ProcessingControls: React.FC<ProcessingControlsProps> = ({
 
           <div>
             <h4 className="text-sm font-medium text-gray-700">Peak Analysis</h4>
-            <div className="mt-2 grid grid-cols-2 gap-4">
+            <div className="mt-2 flex flex-col gap-2">
               <div>
                 <div>
-                  <label className="flex items-center">
-                    <input
-                      type="checkbox"
-                      checked={params.peaks.useMinHeight}
-                      onChange={(e) => handleChange('peaks', 'useMinHeight', e.target.checked)}
-                      className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                    />
-                    <span className="ml-2 text-sm text-gray-600">Use Min. Height (%)</span>
-                  </label>
+                  <div className="flex items-center pl-1">
+  <input
+    type="checkbox"
+    checked={params.peaks.useMinHeight}
+    onChange={(e) => handleChange('peaks', 'useMinHeight', e.target.checked)}
+    className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+  />
+  <span className="ml-2 text-sm text-gray-600 flex items-center gap-1">Use Min. Height (%)
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <span tabIndex={0} className="ml-1 cursor-pointer text-gray-400 hover:text-gray-600">
+          <HelpCircle size={16} />
+        </span>
+      </TooltipTrigger>
+      <TooltipContent>Only peaks above this relative height (percent of max intensity) are detected.</TooltipContent>
+    </Tooltip>
+  </span>
+</div>
                   {params.peaks.useMinHeight && (
                     <input
                       type="number"
@@ -136,15 +188,24 @@ export const ProcessingControls: React.FC<ProcessingControlsProps> = ({
                   )}
                 </div>
                 <div>
-                  <label className="flex items-center">
-                    <input
-                      type="checkbox"
-                      checked={params.peaks.useMinDistance}
-                      onChange={(e) => handleChange('peaks', 'useMinDistance', e.target.checked)}
-                      className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                    />
-                    <span className="ml-2 text-sm text-gray-600">Use Min. Distance (°)</span>
-                  </label>
+                  <div className="flex items-center pl-1">
+  <input
+    type="checkbox"
+    checked={params.peaks.useMinDistance}
+    onChange={(e) => handleChange('peaks', 'useMinDistance', e.target.checked)}
+    className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+  />
+  <span className="ml-2 text-sm text-gray-600 flex items-center gap-1">Use Min. Distance (°)
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <span tabIndex={0} className="ml-1 cursor-pointer text-gray-400 hover:text-gray-600">
+          <HelpCircle size={16} />
+        </span>
+      </TooltipTrigger>
+      <TooltipContent>Minimum angular distance between detected peaks.</TooltipContent>
+    </Tooltip>
+  </span>
+</div>
                   {params.peaks.useMinDistance && (
                     <input
                       type="number"
@@ -155,15 +216,24 @@ export const ProcessingControls: React.FC<ProcessingControlsProps> = ({
                   )}
                 </div>
                 <div>
-                  <label className="flex items-center">
-                    <input
-                      type="checkbox"
-                      checked={params.peaks.useMinProminence}
-                      onChange={(e) => handleChange('peaks', 'useMinProminence', e.target.checked)}
-                      className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                    />
-                    <span className="ml-2 text-sm text-gray-600">Use Min. Prominence</span>
-                  </label>
+                  <div className="flex items-center pl-1">
+  <input
+    type="checkbox"
+    checked={params.peaks.useMinProminence}
+    onChange={(e) => handleChange('peaks', 'useMinProminence', e.target.checked)}
+    className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+  />
+  <span className="ml-2 text-sm text-gray-600 flex items-center gap-1">Use Min. Prominence
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <span tabIndex={0} className="ml-1 cursor-pointer text-gray-400 hover:text-gray-600">
+          <HelpCircle size={16} />
+        </span>
+      </TooltipTrigger>
+      <TooltipContent>Only peaks with a prominence above this value are detected.</TooltipContent>
+    </Tooltip>
+  </span>
+</div>
                   {params.peaks.useMinProminence && (
                     <input
                       type="number"
@@ -190,7 +260,17 @@ export const ProcessingControls: React.FC<ProcessingControlsProps> = ({
             {showAdvanced && (
               <div className="mt-4 space-y-4 bg-gray-50 rounded p-4 border border-gray-200">
                 <div>
-                  <label className="block text-sm text-gray-600">Instrument Broadening (°)</label>
+                  <label className="block text-sm text-gray-600 flex items-center gap-1">
+  Instrument Broadening (°)
+  <Tooltip>
+    <TooltipTrigger asChild>
+      <span tabIndex={0} className="ml-1 cursor-pointer text-gray-400 hover:text-gray-600">
+        <HelpCircle size={16} />
+      </span>
+    </TooltipTrigger>
+    <TooltipContent>Instrumental peak broadening value in degrees 2θ.</TooltipContent>
+  </Tooltip>
+</label>
                   <input
                     type="number"
                     value={params.peaks.instrumentBroadening}
@@ -199,7 +279,17 @@ export const ProcessingControls: React.FC<ProcessingControlsProps> = ({
                   />
                 </div>
                 <div>
-                  <label className="block text-sm text-gray-600">Wavelength (Å)</label>
+                  <label className="block text-sm text-gray-600 flex items-center gap-1">
+  Wavelength (Å)
+  <Tooltip>
+    <TooltipTrigger asChild>
+      <span tabIndex={0} className="ml-1 cursor-pointer text-gray-400 hover:text-gray-600">
+        <HelpCircle size={16} />
+      </span>
+    </TooltipTrigger>
+    <TooltipContent>X-ray wavelength used for conversion and analysis.</TooltipContent>
+  </Tooltip>
+</label>
                   <input
                     type="number"
                     value={params.peaks.wavelength}
@@ -213,5 +303,6 @@ export const ProcessingControls: React.FC<ProcessingControlsProps> = ({
         </div>
       </div>
     </div>
+    </TooltipProvider>
   );
 };

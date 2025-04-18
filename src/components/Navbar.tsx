@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
+import { Link } from 'react-router-dom';
 
 const XRDLogo = () => (
   <span className="inline-block w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
@@ -25,7 +26,8 @@ const Navbar: React.FC = () => {
         </div>
         {/* Desktop links */}
         <div className="hidden sm:flex gap-2">
-          <Button variant="ghost" asChild><a href="#">Home</a></Button>
+          <Button variant="ghost" asChild><Link to="/">Home</Link></Button>
+          <Button variant="ghost" asChild><Link to="/about">About/User Guide</Link></Button>
           <Button variant="ghost" asChild><a href="#help">Help</a></Button>
         </div>
         {/* Mobile menu button */}
@@ -45,7 +47,8 @@ const Navbar: React.FC = () => {
       {/* Mobile nav menu */}
       {menuOpen && (
         <div id="mobile-nav-menu" className="flex flex-col gap-2 px-4 pb-3 sm:hidden animate-fade-in">
-          <Button variant="ghost" asChild className="w-full justify-start"><a href="#">Home</a></Button>
+          <Button variant="ghost" asChild className="w-full justify-start"><Link to="/">Home</Link></Button>
+          <Button variant="ghost" asChild className="w-full justify-start"><Link to="/about">About/User Guide</Link></Button>
           <Button variant="ghost" asChild className="w-full justify-start"><a href="#help">Help</a></Button>
         </div>
       )}
