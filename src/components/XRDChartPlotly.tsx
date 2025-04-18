@@ -17,14 +17,33 @@ export const XRDChartPlotly: React.FC<XRDChartPlotlyProps> = ({ datasets, peakMa
     if (!dataset.visible) return [];
     const x = dataset.data.map(d => d.angle);
     const y = dataset.data.map(d => d.backgroundSubtracted ?? d.intensity);
-    return [{
+    const tracesForDataset = [{
       x,
       y,
       type: 'scatter',
       mode: 'lines',
       name: dataset.name,
       line: { color: dataset.color, width: 2 },
-    }];
+    } as any];
+    // Add detected peaks as markers for this dataset
+    if (dataset.peaks && dataset.peaks.length > 0) {
+      tracesForDataset.push({
+        x: dataset.peaks.map(p => p.angle),
+        y: dataset.peaks.map(p => p.intensity),
+        mode: 'markers',
+        type: 'scatter',
+        name: `${dataset.name} Peaks`,
+        marker: {
+          color: dataset.color,
+          size: 10,
+          symbol: 'circle',
+          line: { color: 'black', width: 1 },
+        },
+        hoverinfo: 'text',
+        text: dataset.peaks.map((p, i) => `Peak ${i + 1}: ${p.angle.toFixed(2)}°<br>Intensity: ${p.intensity.toFixed(0)}`),
+      } as any);
+    }
+    return tracesForDataset;
   });
 
   // Add matched peaks as markers (if any)
@@ -37,13 +56,13 @@ export const XRDChartPlotly: React.FC<XRDChartPlotlyProps> = ({ datasets, peakMa
       name: 'Matched Peaks',
       marker: {
         color: 'red',
-        size: 10,
+        size: 14,
         symbol: 'star',
-        line: { color: 'black', width: 1 },
+        line: { color: 'black', width: 2 },
       },
       hoverinfo: 'text',
       text: peakMatches.map(m => `Sample: ${m.sampleDataset}<br>Ref: ${m.referenceDataset}<br>Δ: ${m.delta.toFixed(3)}°`),
-    });
+    } as any);
   }
 
   const layout = {
@@ -79,7 +98,6 @@ export const XRDChartPlotly: React.FC<XRDChartPlotlyProps> = ({ datasets, peakMa
               scale: 2,
             },
           }}
-          plotly={Plotly}
         /> as any
       )}
     </div>

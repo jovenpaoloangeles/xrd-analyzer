@@ -119,8 +119,15 @@ export const findPeaks = (data: ProcessedData[], params: ProcessingParams): Peak
     let passes = true;
     // Min height
     if (params.peaks.useMinHeight) {
-      const minHeight = maxIntensity * params.peaks.minHeight;
-      if (curr <= minHeight) passes = false;
+      let minHeight: number;
+      if (maxIntensity === 0) {
+        minHeight = params.peaks.minHeight;
+      } else {
+        minHeight = maxIntensity * params.peaks.minHeight;
+      }
+      if (params.peaks.minHeight === 0) {
+        // No threshold, allow all
+      } else if (curr <= minHeight) passes = false;
     }
     if (curr <= prev || curr <= next) passes = false;
     if (passes) {

@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { Card } from "./components/ui/card";
+import { AnalysisResultsCard } from "./components/AnalysisResultsCard";
 
 import { Checkbox } from "./components/ui/checkbox";
 
@@ -208,23 +209,7 @@ function App() {
                   <h3 className="text-lg font-semibold mb-2">Analysis Results</h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
                     {datasets.map(dataset => (
-                      <div key={dataset.id} className="p-3 rounded border bg-card">
-                        <div className="font-semibold text-sm mb-1">{dataset.name} - Detected Peaks</div>
-                        {dataset.peaks.length === 0 ? (
-                          <div className="text-xs text-muted-foreground">No peaks detected.</div>
-                        ) : (
-                          <div>
-                            {dataset.peaks.map((peak, idx) => (
-                              <div key={idx} className="mb-1 text-xs">
-                                <div>Peak {idx + 1}: {peak.angle.toFixed(2)}° (2θ)</div>
-                                <div>Intensity: {peak.intensity.toFixed(0)}</div>
-                                <div>FWHM: {peak.width.toFixed(3)}°</div>
-                                {peak.crystalliteSize && <div>Crystallite Size: {peak.crystalliteSize.toFixed(1)} nm</div>}
-                              </div>
-                            ))}
-                          </div>
-                        )}
-                      </div>
+                      <AnalysisResultsCard key={dataset.id} dataset={dataset} />
                     ))}
                   </div>
                 </div>
