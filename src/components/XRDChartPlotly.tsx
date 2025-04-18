@@ -1,5 +1,6 @@
 import React from 'react';
 import Plot from 'react-plotly.js';
+import Plotly from 'plotly.js-basic-dist';
 import { DataSet } from '../types';
 
 import { PeakMatch } from '../utils/peakMatching';
@@ -11,7 +12,8 @@ interface XRDChartPlotlyProps {
 
 export const XRDChartPlotly: React.FC<XRDChartPlotlyProps> = ({ datasets, peakMatches }) => {
   // Prepare traces for each dataset
-  const traces = datasets.flatMap(dataset => {
+  // Use generic object typing for Plotly traces to avoid type errors
+  const traces: Array<Partial<Record<string, any>>> = datasets.flatMap(dataset => {
     if (!dataset.visible) return [];
     const x = dataset.data.map(d => d.angle);
     const y = dataset.data.map(d => d.backgroundSubtracted ?? d.intensity);
@@ -48,7 +50,7 @@ export const XRDChartPlotly: React.FC<XRDChartPlotlyProps> = ({ datasets, peakMa
     title: 'XRD Pattern Analysis',
     xaxis: { title: '2θ (degrees)' },
     yaxis: { title: 'Intensity (a.u.)' },
-    legend: { orientation: 'h', x: 0.5, xanchor: 'center', y: 1.1 },
+    legend: { orientation: "h" as const, x: 0.5, xanchor: "center" as const, y: 1.1 },
     autosize: true,
     margin: { t: 50, l: 50, r: 30, b: 50 },
     plot_bgcolor: 'white',
@@ -56,25 +58,30 @@ export const XRDChartPlotly: React.FC<XRDChartPlotlyProps> = ({ datasets, peakMa
     font: { family: 'inherit', size: 14 },
   };
 
+
   return (
     <div className="w-full max-w-full h-[300px] sm:h-[400px] md:h-[500px] overflow-x-auto">
-      <Plot
-        data={traces}
-        layout={layout}
-        useResizeHandler
-        style={{ width: '100%', height: '100%' }}
-        config={{
-          responsive: true,
-          displaylogo: false,
-          toImageButtonOptions: {
-            format: 'png',
-            filename: 'xrd-pattern',
-            height: 500,
-            width: 900,
-            scale: 2,
-          },
-        }}
-      />
+      {/* Type assertion to bypass TS error for plotly prop */}
+      {(
+        <Plot
+          data={traces}
+          layout={layout}
+          useResizeHandler
+          style={{ width: '100%', height: '100%' }}
+          config={{
+            responsive: true,
+            displaylogo: false,
+            toImageButtonOptions: {
+              format: 'png',
+              filename: 'xrd-pattern',
+              height: 500,
+              width: 900,
+              scale: 2,
+            },
+          }}
+          plotly={Plotly}
+        /> as any
+      )}
     </div>
   );
 };
