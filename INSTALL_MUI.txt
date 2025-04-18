@@ -1,0 +1,2 @@
+// Run the following command in your project root to install Material UI:
+// npm install @mui/material @emotion/react @emotion/styled
