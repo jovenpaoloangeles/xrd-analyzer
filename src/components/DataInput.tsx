@@ -4,7 +4,7 @@ import { XRDData } from '../types';
 import { Textarea } from "./ui/textarea";
 import { useNotification } from "./NotificationContext";
 import { FileUpload } from "./FileUpload";
-import { Plus } from 'lucide-react';
+import { FlaskConical, Database } from 'lucide-react';
 
 interface DataInputProps {
   onDataLoaded: (data: XRDData[], name: string, type: 'sample' | 'reference') => void;
@@ -84,55 +84,84 @@ export const DataInput: React.FC<DataInputProps> = ({ onDataLoaded, hasSample, h
     [onDataLoaded, showNotification]
   );
 
+  // Collapsible state for paste-in sections
+  const [showPasteSample, setShowPasteSample] = React.useState(false);
+  const [showPasteReference, setShowPasteReference] = React.useState(false);
+
   return (
-  <div className="w-full max-w-2xl mx-auto mt-6">
-    {(!hasSample && !hasReference) || showSampleUpload || showReferenceUpload ? (
-      <div className="flex flex-col md:flex-row gap-4">
-        {/* Sample File Upload */}
-        {(!hasSample || showSampleUpload) && (
-          <FileUpload
-            onFileAccepted={file => handleFileInternal(file, 'sample')}
-            label="Upload Sample Data"
-            description="CSV, TXT, or DAT files (drag and drop or click)"
-          />
-        )}
-        {/* Reference File Upload */}
-        {(!hasReference || showReferenceUpload) && (
-          <FileUpload
-            onFileAccepted={file => handleFileInternal(file, 'reference')}
-            label={<span className="flex items-center gap-1"><Plus size={18} />Add Reference Pattern</span>}
-            description="CSV, TXT, or DAT files (drag and drop or click)"
-          />
-        )}
-      </div>
-    ) : (
-      <div className="flex gap-4">
-        <button
-          className="flex items-center px-3 py-2 rounded bg-indigo-100 text-indigo-700 font-medium border border-indigo-300 hover:bg-indigo-200 transition"
-          onClick={handleAddSample}
-        >
-          <Plus size={18} className="mr-1" /> Add New Sample
-        </button>
-        <button
-          className="flex items-center px-3 py-2 rounded bg-teal-100 text-teal-700 font-medium border border-teal-300 hover:bg-teal-200 transition"
-          onClick={handleAddReference}
-        >
-          <Plus size={18} className="mr-1" /> Add New Reference
-        </button>
-      </div>
-    )}
-    {/* Hide textarea when compressed UI is active */}
-    {(!hasSample && !hasReference) || showSampleUpload || showReferenceUpload ? (
-      <div className="mt-6">
-        <span className="font-medium text-sm mb-1 block">Or paste your data here:</span>
-        <Textarea
-          rows={4}
-          placeholder="Paste your XRD data here (angle,intensity format)"
-          onChange={handlePastedData}
-          className="w-full"
+    <div className="w-full max-w-3xl mx-auto mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* Sample Upload Card */}
+      <div className="bg-white rounded-lg shadow border p-6 flex flex-col">
+        <div className="flex items-center mb-2">
+          <FlaskConical size={22} className="text-indigo-600 mr-2" />
+          <h2 className="font-bold text-lg">Upload Sample Data</h2>
+        </div>
+        <FileUpload
+          onFileAccepted={file => handleFileInternal(file, 'sample')}
+          label={null}
+          description="CSV, TXT, or DAT files (drag and drop or click)"
         />
+        <button
+          className="text-xs mt-4 text-indigo-700 hover:underline self-start"
+          type="button"
+          onClick={() => setShowPasteSample(s => !s)}
+        >
+          {showPasteSample ? 'Hide Paste Data' : 'Paste Data Instead'}
+        </button>
+        {showPasteSample && (
+          <div className="mt-2">
+            <Textarea
+              rows={4}
+              placeholder="Paste your XRD data here (angle,intensity format)"
+              onChange={handlePastedData}
+              className="w-full"
+            />
+          </div>
+        )}
       </div>
-    ) : null}
-  </div>
-);
+
+      {/* Reference Upload Card */}
+      <div className="bg-white rounded-lg shadow border p-6 flex flex-col">
+        <div className="flex items-center mb-2">
+          <Database size={22} className="text-teal-600 mr-2" />
+          <h2 className="font-bold text-lg">Upload Reference Pattern</h2>
+        </div>
+        <FileUpload
+          onFileAccepted={file => handleFileInternal(file, 'reference')}
+          label={null}
+          description="CSV, TXT, or DAT files (drag and drop or click)"
+        />
+        <button
+          className="text-xs mt-4 text-teal-700 hover:underline self-start"
+          type="button"
+          onClick={() => setShowPasteReference(s => !s)}
+        >
+          {showPasteReference ? 'Hide Paste Data' : 'Paste Data Instead'}
+        </button>
+        {showPasteReference && (
+          <div className="mt-2">
+            <Textarea
+              rows={4}
+              placeholder="Paste your XRD reference pattern here (angle,intensity format)"
+              onChange={e => {
+                // Use as reference
+                const text = e.target.value;
+                try {
+                  if (text) {
+                    const data = parseCSV(text);
+                    if (!data.length) throw new Error('No valid data found in pasted text.');
+                    onDataLoaded(data, 'Pasted Reference', 'reference');
+                    showNotification('Loaded pasted reference.', 'success');
+                  }
+                } catch (err: any) {
+                  showNotification(`Failed to parse pasted reference: ${err.message}`, 'error');
+                }
+              }}
+              className="w-full"
+            />
+          </div>
+        )}
+      </div>
+    </div>
+  );
 };
