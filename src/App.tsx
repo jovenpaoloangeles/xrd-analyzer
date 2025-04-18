@@ -110,7 +110,7 @@ function App() {
   return (
     <NotificationProvider>
       <GlobalNotification />
-      <BrowserRouter>
+      <BrowserRouter basename="/xrd-analyzer">
       <div className="bg-background min-h-screen">
         <Navbar />
         <Routes>
