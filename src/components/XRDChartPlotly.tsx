@@ -68,6 +68,52 @@ export const XRDChartPlotly: React.FC<XRDChartPlotlyProps> = ({ datasets, peakMa
     }
   });
 
+  // Add Rietveld Refinement results
+  if (params.rietveld.enabled && params.rietveld.refinedIntensity) {
+    const sample = datasets.find(d => d.type === 'sample' && d.visible);
+    if (sample) {
+      const x = sample.data.map(d => d.angle);
+      const obs = sample.data.map(d => d.backgroundSubtracted ?? d.intensity);
+      const calc = params.rietveld.refinedIntensity;
+      const diff = obs.map((o, i) => o - calc[i]);
+      
+      // Calculate a negative offset for the difference plot so it doesn't overlap
+      const diffOffset = -Math.max(...obs) * 0.15;
+      const shiftedDiff = diff.map(d => d + diffOffset);
+
+      // 1. Calculated Profile
+      traces.push({
+        x,
+        y: calc,
+        type: 'scatter',
+        mode: 'lines',
+        name: 'Calculated (Rietveld)',
+        line: { color: 'black', width: 1.5, dash: 'solid' },
+      } as any);
+
+      // 2. Difference Plot
+      traces.push({
+        x,
+        y: shiftedDiff,
+        type: 'scatter',
+        mode: 'lines',
+        name: 'Difference (Obs - Calc)',
+        line: { color: 'gray', width: 1 },
+      } as any);
+
+      // 3. Difference zero-line
+      traces.push({
+        x: [x[0], x[x.length - 1]],
+        y: [diffOffset, diffOffset],
+        type: 'scatter',
+        mode: 'lines',
+        name: 'Diff Baseline',
+        showlegend: false,
+        line: { color: 'lightgray', width: 1, dash: 'dash' },
+      } as any);
+    }
+  }
+
   // Add matched peaks as markers (if any)
   if (peakMatches && peakMatches.length > 0) {
     // Note: Matched peaks logic might need adjustment if sample/ref have different offsets
