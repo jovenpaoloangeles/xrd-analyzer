@@ -17,6 +17,7 @@ export const simulateXRD = (
   // In a full version, we'd iterate over h,k,l based on lattice parameters.
   
   const reflections = generateReflections(structure, angles[0], angles[angles.length - 1], wavelength);
+  // console.log(`Generated ${reflections.length} reflections`);
 
   // 2. For each reflection, calculate position and intensity
   reflections.forEach(ref => {
