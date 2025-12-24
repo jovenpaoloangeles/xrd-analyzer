@@ -25,6 +25,27 @@ export interface Peak {
   };
 }
 
+export interface AtomSite {
+  label: string;
+  symbol: string;
+  x: number;
+  y: number;
+  z: number;
+  occupancy: number;
+  B_iso?: number;
+}
+
+export interface CrystalStructure {
+  a: number;
+  b: number;
+  c: number;
+  alpha: number;
+  beta: number;
+  gamma: number;
+  spaceGroup?: string;
+  atoms: AtomSite[];
+}
+
 export interface DataSet {
   id: string;
   name: string;
