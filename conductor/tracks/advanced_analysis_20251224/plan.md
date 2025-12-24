@@ -4,7 +4,7 @@ This plan outlines the steps for migrating to shadcn Base UI and implementing ad
 
 ## Phase 1: Infrastructure & Base UI Migration
 - [x] Task: Install shadcn Base UI and necessary dependencies. b59356b
-- [ ] Task: Migrate `Tooltip` components from Radix to Base UI.
+- [x] Task: Migrate `Tooltip` components from Radix to Base UI. 03c2dbc
 - [ ] Task: Migrate `Checkbox` and `Dropdown` components to Base UI.
 - [ ] Task: Migrate `Dialog` (if any) and `Tabs` to Base UI.
 - [ ] Task: Verify UI consistency and accessibility after migration.
