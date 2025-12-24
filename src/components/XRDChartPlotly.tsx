@@ -3,6 +3,7 @@ import Plot from 'react-plotly.js';
 import { DataSet, ProcessingParams } from '../types';
 
 import { PeakMatch } from '../utils/peakMatching';
+import { calculateWaterfallOffset } from '../utils/dataProcessing';
 
 interface XRDChartPlotlyProps {
   datasets: DataSet[];
@@ -17,7 +18,7 @@ export const XRDChartPlotly: React.FC<XRDChartPlotlyProps> = ({ datasets, peakMa
   // Create traces array for all datasets and their peaks
   const traces: Array<Partial<Record<string, any>>> = [];
   
-  const isWaterfall = params.comparison.mode === 'waterfall';
+  const mode = params.comparison.mode;
   const offsetValue = params.comparison.offset;
 
   // Process each dataset and immediately add its peaks
@@ -27,7 +28,7 @@ export const XRDChartPlotly: React.FC<XRDChartPlotlyProps> = ({ datasets, peakMa
     if (!dataset.visible) return;
     
     // Calculate vertical offset for waterfall mode
-    const currentOffset = isWaterfall ? index * offsetValue : 0;
+    const currentOffset = calculateWaterfallOffset(index, offsetValue, mode);
 
     const x = dataset.data.map(d => d.angle);
     const y = dataset.data.map(d => (d.backgroundSubtracted ?? d.intensity) + currentOffset);
@@ -77,7 +78,7 @@ export const XRDChartPlotly: React.FC<XRDChartPlotlyProps> = ({ datasets, peakMa
       y: peakMatches.map(m => {
         // Find dataset index to apply same offset
         const dsIndex = datasets.findIndex(ds => ds.name === m.sampleDataset);
-        const currentOffset = (isWaterfall && dsIndex !== -1) ? dsIndex * offsetValue : 0;
+        const currentOffset = calculateWaterfallOffset(dsIndex, offsetValue, mode);
         return m.samplePeak.intensity + currentOffset;
       }),
       mode: 'markers',

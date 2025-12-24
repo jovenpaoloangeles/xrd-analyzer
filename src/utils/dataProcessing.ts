@@ -132,6 +132,14 @@ export const findPeaks = (data: ProcessedData[], params: ProcessingParams): Peak
   return findPeaksUtil(data, params);
 };
 
+export const calculateWaterfallOffset = (
+  index: number,
+  offsetValue: number,
+  mode: 'overlay' | 'waterfall'
+): number => {
+  return mode === 'waterfall' ? index * offsetValue : 0;
+};
+
 // Removed internal helper functions (findLocalMinima, cubicSplineInterpolation, rollingBallIteration, etc.)
 // as they are now handled by utilities or are placeholders to be refined.
 
