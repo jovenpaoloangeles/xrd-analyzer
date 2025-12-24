@@ -4,5 +4,6 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ---
 
-## [~] Track: Implement Core Data Processing and Analysis Features
-*Link: [./conductor/tracks/core_analysis_20251224/](./conductor/tracks/core_analysis_20251224/)*
+## [~] Track: Base UI Migration & Advanced XRD Analysis (Multi-pattern comparison & Rietveld refinement)
+*Link: [./conductor/tracks/advanced_analysis_20251224/](./conductor/tracks/advanced_analysis_20251224/)*
+
