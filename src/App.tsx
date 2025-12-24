@@ -8,6 +8,7 @@ import Navbar from './components/Navbar';
 import { DataInput } from './components/DataInput';
 import { XRDChartPlotly } from "./components/XRDChartPlotly";
 import { ProcessingControls } from './components/ProcessingControls';
+import { RietveldControls } from './components/RietveldControls';
 import { NotificationProvider } from './components/NotificationContext';
 import { GlobalNotification } from './components/GlobalNotification';
 import About from './components/About';
@@ -33,6 +34,9 @@ const defaultProcessingParams: ProcessingParams = {
   comparison: {
     mode: 'overlay',
     offset: 50,
+  },
+  rietveld: {
+    enabled: false,
   },
 };
 
@@ -98,6 +102,43 @@ function App() {
     }));
     setTimeout(() => setLoading(false), 300); // Give spinner a chance to show
   }, [processData]);
+
+  const runRefinement = useCallback(() => {
+    const sample = datasets.find(d => d.type === 'sample' && d.visible);
+    if (!sample || !processingParams.rietveld.structure) return;
+
+    setLoading(true);
+    const worker = new Worker(new URL('./workers/refinement.worker.ts', import.meta.url), { type: 'module' });
+    
+    worker.postMessage({
+      experimentalData: sample.data,
+      structure: processingParams.rietveld.structure,
+      wavelength: processingParams.peaks.wavelength,
+      paramsToRefine: ['a', 'scale']
+    });
+
+    worker.onmessage = (e) => {
+      const { calculatedIntensity, refinedStructure, rwp } = e.data;
+      setProcessingParams(prev => ({
+        ...prev,
+        rietveld: {
+          ...prev.rietveld,
+          refinedIntensity: calculatedIntensity,
+          rwp,
+          structure: refinedStructure,
+          enabled: true
+        }
+      }));
+      setLoading(false);
+      worker.terminate();
+    };
+
+    worker.onerror = (err) => {
+      console.error("Worker error", err);
+      setLoading(false);
+      worker.terminate();
+    };
+  }, [datasets, processingParams]);
 
   // Extra safety: always reprocess datasets when processingParams changes
   React.useEffect(() => {
@@ -238,9 +279,14 @@ function App() {
             </div>
             <div>
               <h3 className="text-lg font-semibold mb-2">Processing Controls</h3>
-              <Card className="p-4">
+              <Card className="p-4 mb-4">
                 <ProcessingControls params={processingParams} onParamsChange={handleParamsChange} />
               </Card>
+              <RietveldControls 
+                params={processingParams} 
+                onParamsChange={handleParamsChange} 
+                onRunRefinement={runRefinement} 
+              />
             </div>
           </div>
         </div>}

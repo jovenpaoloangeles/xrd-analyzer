@@ -79,7 +79,14 @@ export interface ProcessingParams {
     useMinProminence: boolean;
   };
   comparison: {
-    mode: 'overlay' | 'waterfall';
+    mode: 'overlay';
     offset: number;
+  };
+  rietveld: {
+    enabled: boolean;
+    cifContent?: string;
+    refinedIntensity?: number[];
+    rwp?: number;
+    structure?: CrystalStructure;
   };
 }
