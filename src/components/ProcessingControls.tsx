@@ -156,6 +156,56 @@ export const ProcessingControls: React.FC<ProcessingControlsProps> = ({
           </div>
 
           <div>
+            <h4 className="text-sm font-medium text-gray-700">Pattern Comparison</h4>
+            <div className="mt-2 space-y-2">
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm text-gray-600 flex items-center gap-1">
+                    Mode
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <span tabIndex={0} className="ml-1 cursor-pointer text-gray-400 hover:text-gray-600">
+                          <HelpCircle size={16} />
+                        </span>
+                      </TooltipTrigger>
+                      <TooltipContent>Overlay plots or stack them vertically (Waterfall).</TooltipContent>
+                    </Tooltip>
+                  </label>
+                  <select
+                    value={params.comparison.mode}
+                    onChange={(e) => handleChange('comparison', 'mode', e.target.value)}
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                  >
+                    <option value="overlay">Overlay</option>
+                    <option value="waterfall">Waterfall</option>
+                  </select>
+                </div>
+                {params.comparison.mode === 'waterfall' && (
+                  <div>
+                    <label className="block text-sm text-gray-600 flex items-center gap-1">
+                      Y-Offset
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <span tabIndex={0} className="ml-1 cursor-pointer text-gray-400 hover:text-gray-600">
+                            <HelpCircle size={16} />
+                          </span>
+                        </TooltipTrigger>
+                        <TooltipContent>Vertical distance between stacked patterns.</TooltipContent>
+                      </Tooltip>
+                    </label>
+                    <input
+                      type="number"
+                      value={params.comparison.offset}
+                      onChange={(e) => handleChange('comparison', 'offset', parseInt(e.target.value))}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    />
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+
+          <div>
             <h4 className="text-sm font-medium text-gray-700">Peak Analysis</h4>
             <div className="mt-2 flex flex-col gap-2">
               <div>
