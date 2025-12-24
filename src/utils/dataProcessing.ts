@@ -1,5 +1,6 @@
 import { XRDData, ProcessedData, Peak, ProcessingParams } from '../types';
-import savitzkyGolay from 'ml-savitzky-golay';
+import { smoothSignal } from './smoothing';
+import { subtractBackground as subtractBG } from './backgroundSubtraction';
 
 export const parseCSV = (text: string): XRDData[] => {
   const lines = text.trim().split(/\r?\n/); // Split by newline, handling \r\n
@@ -37,10 +38,9 @@ export const parseCSV = (text: string): XRDData[] => {
 };
 
 export const smoothData = (data: ProcessedData[], params: ProcessingParams): ProcessedData[] => {
-  if (!params.smoothing.enabled) return data;
-
   const intensities = data.map(d => d.intensity);
-  const smoothed = savitzkyGolay(intensities, 1, {
+  const smoothed = smoothSignal(intensities, {
+    enabled: params.smoothing.enabled,
     windowSize: params.smoothing.windowSize,
     polynomial: params.smoothing.polynomialOrder,
   });
@@ -52,6 +52,26 @@ export const smoothData = (data: ProcessedData[], params: ProcessingParams): Pro
 };
 
 export const subtractBackground = (data: ProcessedData[], params: ProcessingParams): ProcessedData[] => {
+  if (!params.background.enabled) {
+    return data.map(point => ({
+      ...point,
+      backgroundSubtracted: point.smoothed ?? point.intensity,
+    }));
+  }
+
+  // Use new utility for basic 'min' subtraction if that's the intention,
+  // or use it as a fallback/default.
+  if (params.background.method === 'sliding' || !params.background.method) {
+    const intensities = data.map(d => d.smoothed ?? d.intensity);
+    const angles = data.map(d => d.angle);
+    const result = subtractBG(angles, intensities, { enabled: true });
+
+    return data.map((point, i) => ({
+      ...point,
+      backgroundSubtracted: result.corrected[i],
+    }));
+  }
+
   switch (params.background.method) {
     case 'spline':
       return subtractSplineBackground(data, params.background.windowSize);

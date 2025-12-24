@@ -9,9 +9,9 @@ This plan outlines the steps to implement background subtraction, smoothing, and
 - [x] Task: Conductor - User Manual Verification 'Foundational Processing Utilities' (Protocol in workflow.md)
 
 ## Phase 2: UI Integration for Smoothing and Background
-- [ ] Task: Create UI controls in `ProcessingControls.tsx` for smoothing parameters (window size, order).
-- [ ] Task: Create UI controls in `ProcessingControls.tsx` for background subtraction parameters.
-- [ ] Task: Connect processing utilities to the main state in `App.tsx`.
+- [x] Task: Create UI controls in `ProcessingControls.tsx` for smoothing parameters (window size, order). (Pre-existing)
+- [x] Task: Create UI controls in `ProcessingControls.tsx` for background subtraction parameters. (Pre-existing)
+- [x] Task: Connect processing utilities to the main state in `App.tsx`. a95253f
 - [ ] Task: Ensure the `XRDChartPlotly.tsx` correctly displays processed vs. raw data.
 - [ ] Task: Conductor - User Manual Verification 'UI Integration for Smoothing and Background' (Protocol in workflow.md)
 
