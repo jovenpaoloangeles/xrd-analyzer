@@ -28,5 +28,5 @@ This plan outlines the steps for migrating to shadcn Base UI and implementing ad
 - [x] Task: Implement the refinement solver using `ml-levenberg-marquardt` (Lattice, Scale, Atomic Positions). f86075d
 - [x] Task: Add UI for refinement configuration (selecting parameters to refine). 7650149
 - [x] Task: Update `XRDChartPlotly.tsx` to display calculated profile and difference plot. 551371b
-- [ ] Task: Write integration tests for the full refinement flow.
+- [x] Task: Write integration tests for the full refinement flow. f5c9e5f
 - [ ] Task: Conductor - User Manual Verification 'Rietveld Refinement - Implementation & UI' (Protocol in workflow.md)
