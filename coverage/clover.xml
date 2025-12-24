@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1766565270425" clover="3.2.0">
-  <project timestamp="1766565270425" name="All files">
+<coverage generated="1766567188443" clover="3.2.0">
+  <project timestamp="1766567188443" name="All files">
     <metrics statements="21" coveredstatements="18" conditionals="10" coveredconditionals="9" methods="3" coveredmethods="3" elements="34" coveredelements="30" complexity="0" loc="21" ncloc="21" packages="1" files="2" classes="2"/>
     <file name="backgroundSubtraction.ts" path="C:\Users\joven\OneDrive\Documents\XRDAnalyzer\src\utils\backgroundSubtraction.ts">
       <metrics statements="7" coveredstatements="7" conditionals="3" coveredconditionals="3" methods="2" coveredmethods="2"/>
