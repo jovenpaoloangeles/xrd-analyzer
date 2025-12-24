@@ -8,12 +8,12 @@ This plan outlines the steps to implement background subtraction, smoothing, and
 - [x] Task: Write unit tests for background subtraction and smoothing logic. d3510d7
 - [x] Task: Conductor - User Manual Verification 'Foundational Processing Utilities' (Protocol in workflow.md)
 
-## Phase 2: UI Integration for Smoothing and Background
+## Phase 2: UI Integration for Smoothing and Background [checkpoint: 14e46f0]
 - [x] Task: Create UI controls in `ProcessingControls.tsx` for smoothing parameters (window size, order). (Pre-existing)
 - [x] Task: Create UI controls in `ProcessingControls.tsx` for background subtraction parameters. (Pre-existing)
 - [x] Task: Connect processing utilities to the main state in `App.tsx`. a95253f
-- [ ] Task: Ensure the `XRDChartPlotly.tsx` correctly displays processed vs. raw data.
-- [ ] Task: Conductor - User Manual Verification 'UI Integration for Smoothing and Background' (Protocol in workflow.md)
+- [x] Task: Ensure the `XRDChartPlotly.tsx` correctly displays processed vs. raw data. 14e46f0
+- [x] Task: Conductor - User Manual Verification 'UI Integration for Smoothing and Background' (Protocol in workflow.md)
 
 ## Phase 3: Peak Detection Implementation
 - [ ] Task: Implement peak detection algorithm in `peakMatching.ts` or a new utility.
