@@ -11,7 +11,7 @@ This plan outlines the steps for migrating to shadcn Base UI and implementing ad
 - [x] Task: Conductor - User Manual Verification 'Infrastructure & Base UI Migration' (Protocol in workflow.md)
 
 ## Phase 2: Multiple Pattern Comparison (Visualization)
-- [ ] Task: Update `types.ts` to support multi-dataset display settings (offset, mode).
+- [x] Task: Update `types.ts` to support multi-dataset display settings (offset, mode). 96d9d49
 - [ ] Task: Implement 'Overlay' vs 'Waterfall' logic in `XRDChartPlotly.tsx`.
 - [ ] Task: Add UI controls for Comparison Mode and Y-Offset in `ProcessingControls.tsx`.
 - [ ] Task: Write tests for data offset calculation logic.
