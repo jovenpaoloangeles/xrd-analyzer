@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1766567188443" clover="3.2.0">
-  <project timestamp="1766567188443" name="All files">
-    <metrics statements="21" coveredstatements="18" conditionals="10" coveredconditionals="9" methods="3" coveredmethods="3" elements="34" coveredelements="30" complexity="0" loc="21" ncloc="21" packages="1" files="2" classes="2"/>
+<coverage generated="1766567347439" clover="3.2.0">
+  <project timestamp="1766567347439" name="All files">
+    <metrics statements="146" coveredstatements="92" conditionals="101" coveredconditionals="42" methods="38" coveredmethods="13" elements="285" coveredelements="147" complexity="0" loc="146" ncloc="146" packages="1" files="4" classes="4"/>
     <file name="backgroundSubtraction.ts" path="C:\Users\joven\OneDrive\Documents\XRDAnalyzer\src\utils\backgroundSubtraction.ts">
       <metrics statements="7" coveredstatements="7" conditionals="3" coveredconditionals="3" methods="2" coveredmethods="2"/>
-      <line num="13" count="1" type="stmt"/>
+      <line num="13" count="2" type="stmt"/>
       <line num="18" count="2" type="cond" truecount="2" falsecount="0"/>
       <line num="19" count="1" type="stmt"/>
       <line num="29" count="1" type="stmt"/>
@@ -12,9 +12,140 @@
       <line num="31" count="5" type="stmt"/>
       <line num="33" count="1" type="stmt"/>
     </file>
+    <file name="dataProcessing.ts" path="C:\Users\joven\OneDrive\Documents\XRDAnalyzer\src\utils\dataProcessing.ts">
+      <metrics statements="60" coveredstatements="11" conditionals="37" coveredconditionals="0" methods="23" coveredmethods="1"/>
+      <line num="6" count="1" type="stmt"/>
+      <line num="7" count="0" type="stmt"/>
+      <line num="9" count="0" type="stmt"/>
+      <line num="10" count="0" type="stmt"/>
+      <line num="11" count="0" type="stmt"/>
+      <line num="13" count="0" type="cond" truecount="0" falsecount="4"/>
+      <line num="14" count="0" type="stmt"/>
+      <line num="18" count="0" type="stmt"/>
+      <line num="19" count="0" type="cond" truecount="0" falsecount="2"/>
+      <line num="20" count="0" type="stmt"/>
+      <line num="21" count="0" type="stmt"/>
+      <line num="24" count="0" type="cond" truecount="0" falsecount="4"/>
+      <line num="25" count="0" type="stmt"/>
+      <line num="27" count="0" type="stmt"/>
+      <line num="30" count="0" type="stmt"/>
+      <line num="34" count="0" type="cond" truecount="0" falsecount="2"/>
+      <line num="35" count="0" type="stmt"/>
+      <line num="38" count="0" type="stmt"/>
+      <line num="41" count="1" type="stmt"/>
+      <line num="42" count="0" type="stmt"/>
+      <line num="43" count="0" type="stmt"/>
+      <line num="49" count="0" type="stmt"/>
+      <line num="55" count="1" type="stmt"/>
+      <line num="56" count="0" type="cond" truecount="0" falsecount="2"/>
+      <line num="57" count="0" type="stmt"/>
+      <line num="65" count="0" type="cond" truecount="0" falsecount="4"/>
+      <line num="66" count="0" type="cond" truecount="0" falsecount="2"/>
+      <line num="67" count="0" type="stmt"/>
+      <line num="68" count="0" type="stmt"/>
+      <line num="70" count="0" type="stmt"/>
+      <line num="76" count="0" type="cond" truecount="0" falsecount="3"/>
+      <line num="78" count="0" type="stmt"/>
+      <line num="80" count="0" type="cond" truecount="0" falsecount="2"/>
+      <line num="82" count="0" type="stmt"/>
+      <line num="86" count="1" type="stmt"/>
+      <line num="87" count="0" type="stmt"/>
+      <line num="88" count="0" type="stmt"/>
+      <line num="89" count="0" type="stmt"/>
+      <line num="90" count="0" type="stmt"/>
+      <line num="91" count="0" type="cond" truecount="0" falsecount="2"/>
+      <line num="93" count="0" type="stmt"/>
+      <line num="100" count="1" type="stmt"/>
+      <line num="102" count="0" type="stmt"/>
+      <line num="105" count="0" type="stmt"/>
+      <line num="106" count="0" type="stmt"/>
+      <line num="108" count="0" type="stmt"/>
+      <line num="114" count="1" type="stmt"/>
+      <line num="119" count="0" type="cond" truecount="0" falsecount="2"/>
+      <line num="121" count="0" type="stmt"/>
+      <line num="122" count="0" type="stmt"/>
+      <line num="125" count="0" type="stmt"/>
+      <line num="131" count="1" type="stmt"/>
+      <line num="132" count="3" type="stmt"/>
+      <line num="138" count="1" type="stmt"/>
+      <line num="140" count="0" type="stmt"/>
+      <line num="142" count="0" type="stmt"/>
+      <line num="145" count="1" type="stmt"/>
+      <line num="147" count="0" type="stmt"/>
+      <line num="150" count="1" type="stmt"/>
+      <line num="152" count="0" type="stmt"/>
+    </file>
+    <file name="peakDetection.ts" path="C:\Users\joven\OneDrive\Documents\XRDAnalyzer\src\utils\peakDetection.ts">
+      <metrics statements="65" coveredstatements="63" conditionals="54" coveredconditionals="33" methods="12" coveredmethods="9"/>
+      <line num="3" count="1" type="stmt"/>
+      <line num="5" count="3" type="stmt"/>
+      <line num="6" count="15" type="cond" truecount="1" falsecount="1"/>
+      <line num="8" count="3" type="stmt"/>
+      <line num="9" count="9" type="cond" truecount="1" falsecount="1"/>
+      <line num="10" count="9" type="cond" truecount="1" falsecount="1"/>
+      <line num="11" count="9" type="cond" truecount="1" falsecount="1"/>
+      <line num="13" count="9" type="stmt"/>
+      <line num="16" count="9" type="cond" truecount="1" falsecount="1"/>
+      <line num="18" count="9" type="cond" truecount="1" falsecount="1"/>
+      <line num="19" count="0" type="stmt"/>
+      <line num="21" count="9" type="stmt"/>
+      <line num="24" count="9" type="cond" truecount="2" falsecount="0"/>
+      <line num="27" count="9" type="cond" truecount="4" falsecount="0"/>
+      <line num="29" count="9" type="cond" truecount="2" falsecount="0"/>
+      <line num="30" count="3" type="stmt"/>
+      <line num="35" count="3" type="stmt"/>
+      <line num="38" count="3" type="stmt"/>
+      <line num="39" count="3" type="stmt"/>
+      <line num="40" count="3" type="cond" truecount="1" falsecount="1"/>
+      <line num="41" count="3" type="cond" truecount="1" falsecount="1"/>
+      <line num="42" count="0" type="stmt"/>
+      <line num="45" count="3" type="stmt"/>
+      <line num="49" count="3" type="stmt"/>
+      <line num="50" count="3" type="stmt"/>
+      <line num="51" count="3" type="stmt"/>
+      <line num="53" count="4" type="cond" truecount="4" falsecount="2"/>
+      <line num="55" count="6" type="cond" truecount="4" falsecount="2"/>
+      <line num="57" count="3" type="cond" truecount="1" falsecount="1"/>
+      <line num="58" count="3" type="cond" truecount="1" falsecount="1"/>
+      <line num="59" count="3" type="cond" truecount="1" falsecount="1"/>
+      <line num="60" count="3" type="stmt"/>
+      <line num="62" count="3" type="cond" truecount="1" falsecount="1"/>
+      <line num="63" count="3" type="cond" truecount="1" falsecount="1"/>
+      <line num="65" count="3" type="stmt"/>
+      <line num="69" count="3" type="stmt"/>
+      <line num="70" count="3" type="stmt"/>
+      <line num="71" count="3" type="stmt"/>
+      <line num="72" count="3" type="stmt"/>
+      <line num="78" count="3" type="stmt"/>
+      <line num="82" count="3" type="stmt"/>
+      <line num="85" count="1" type="stmt"/>
+      <line num="86" count="3" type="cond" truecount="1" falsecount="1"/>
+      <line num="87" count="3" type="stmt"/>
+      <line num="90" count="3" type="stmt"/>
+      <line num="91" count="3" type="stmt"/>
+      <line num="92" count="3" type="stmt"/>
+      <line num="94" count="15" type="stmt"/>
+      <line num="95" count="15" type="cond" truecount="1" falsecount="1"/>
+      <line num="98" count="3" type="stmt"/>
+      <line num="99" count="3" type="stmt"/>
+      <line num="102" count="3" type="cond" truecount="1" falsecount="1"/>
+      <line num="104" count="3" type="stmt"/>
+      <line num="116" count="1" type="stmt"/>
+      <line num="123" count="3" type="stmt"/>
+      <line num="126" count="3" type="stmt"/>
+      <line num="127" count="3" type="cond" truecount="1" falsecount="1"/>
+      <line num="130" count="3" type="stmt"/>
+      <line num="132" count="3" type="stmt"/>
+      <line num="136" count="1" type="stmt"/>
+      <line num="137" count="3" type="stmt"/>
+      <line num="144" count="1" type="stmt"/>
+      <line num="145" count="3" type="stmt"/>
+      <line num="152" count="1" type="stmt"/>
+      <line num="153" count="3" type="stmt"/>
+    </file>
     <file name="smoothing.ts" path="C:\Users\joven\OneDrive\Documents\XRDAnalyzer\src\utils\smoothing.ts">
       <metrics statements="14" coveredstatements="11" conditionals="7" coveredconditionals="6" methods="1" coveredmethods="1"/>
-      <line num="9" count="1" type="stmt"/>
+      <line num="9" count="2" type="stmt"/>
       <line num="13" count="2" type="cond" truecount="2" falsecount="0"/>
       <line num="14" count="1" type="stmt"/>
       <line num="17" count="1" type="cond" truecount="2" falsecount="0"/>

@@ -16,7 +16,7 @@ This plan outlines the steps to implement background subtraction, smoothing, and
 - [x] Task: Conductor - User Manual Verification 'UI Integration for Smoothing and Background' (Protocol in workflow.md)
 
 ## Phase 3: Peak Detection Implementation
-- [ ] Task: Implement peak detection algorithm in `peakMatching.ts` or a new utility.
-- [ ] Task: Create UI controls for peak detection sensitivity.
+- [x] Task: Implement peak detection algorithm in `peakMatching.ts` or a new utility. e18b397
+- [x] Task: Create UI controls for peak detection sensitivity. (Pre-existing)
 - [ ] Task: Update `XRDChartPlotly.tsx` to render markers/annotations for detected peaks.
 - [ ] Task: Conductor - User Manual Verification 'Peak Detection Implementation' (Protocol in workflow.md)
