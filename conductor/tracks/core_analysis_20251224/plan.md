@@ -2,11 +2,11 @@
 
 This plan outlines the steps to implement background subtraction, smoothing, and peak detection.
 
-## Phase 1: Foundational Processing Utilities
+## Phase 1: Foundational Processing Utilities [checkpoint: 926ccef]
 - [x] Task: Implement background subtraction utility function. a6fd1e4
 - [x] Task: Implement Savitzky-Golay smoothing utility function. d3510d7
 - [x] Task: Write unit tests for background subtraction and smoothing logic. d3510d7
-- [ ] Task: Conductor - User Manual Verification 'Foundational Processing Utilities' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Foundational Processing Utilities' (Protocol in workflow.md)
 
 ## Phase 2: UI Integration for Smoothing and Background
 - [ ] Task: Create UI controls in `ProcessingControls.tsx` for smoothing parameters (window size, order).
