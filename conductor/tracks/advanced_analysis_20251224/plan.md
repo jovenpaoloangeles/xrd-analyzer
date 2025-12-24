@@ -19,7 +19,7 @@ This plan outlines the steps for migrating to shadcn Base UI and implementing ad
 
 ## Phase 3: Rietveld Refinement - Data & Solver Setup
 - [x] Task: Implement CIF file upload and parsing utility. 305ee10
-- [ ] Task: Create a Web Worker to handle the computation-heavy refinement solver.
+- [x] Task: Create a Web Worker to handle the computation-heavy refinement solver. 166b53a
 - [ ] Task: Implement the calculation engine for XRD profiles based on CIF parameters (Atomic Scattering Factors, Lorentz-Polarization).
 - [ ] Task: Write unit tests for the XRD profile calculation engine.
 - [ ] Task: Conductor - User Manual Verification 'Rietveld Refinement - Data & Solver Setup' (Protocol in workflow.md)
