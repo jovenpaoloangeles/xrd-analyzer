@@ -76,10 +76,9 @@ const subtractSlidingBackground = (data: ProcessedData[], windowSize: number): P
   });
 };
 
-const subtractSplineBackground = (data: ProcessedData[], windowSize: number): ProcessedData[] => {
+const subtractSplineBackground = (data: ProcessedData[], _windowSize: number): ProcessedData[] => {
   // Implement cubic spline background subtraction
   const x = data.map((_, i) => i);
-  const y = data.map(d => d.smoothed ?? d.intensity);
   
   // Find local minima for spline control points
   const controlPoints = findLocalMinima();
@@ -93,7 +92,7 @@ const subtractSplineBackground = (data: ProcessedData[], windowSize: number): Pr
 
 const subtractRollingBallBackground = (
   data: ProcessedData[],
-  radius: number,
+  _radius: number,
   iterations: number
 ): ProcessedData[] => {
   let background = data.map(d => d.smoothed ?? d.intensity);
@@ -233,7 +232,7 @@ const findLocalMinima = () => {
   return minima;
 };
 
-const cubicSplineInterpolation = (x: number[], y: number[], xi: number[]) => {
+const cubicSplineInterpolation = (_x: number[], _y: number[], xi: number[]) => {
   // Implementation of cubic spline interpolation
   return new Array(xi.length).fill(0);
 };
@@ -243,7 +242,7 @@ const rollingBallIteration = (data: number[]) => {
   return data;
 };
 
-const fitGaussian = (x: number[], y: number[], center: number, amplitude: number) => {
+const fitGaussian = (_x: number[], _y: number[], center: number, amplitude: number) => {
   // Implementation of Gaussian peak fitting
   return {
     type: 'gaussian' as const,
@@ -252,7 +251,7 @@ const fitGaussian = (x: number[], y: number[], center: number, amplitude: number
   };
 };
 
-const fitLorentzian = (x: number[], y: number[], center: number, amplitude: number) => {
+const fitLorentzian = (_x: number[], _y: number[], center: number, amplitude: number) => {
   // Implementation of Lorentzian peak fitting
   return {
     type: 'lorentzian' as const,
@@ -261,7 +260,7 @@ const fitLorentzian = (x: number[], y: number[], center: number, amplitude: numb
   };
 };
 
-const calculatePeakArea = (fit: ReturnType<typeof fitGaussian> | ReturnType<typeof fitLorentzian>) => {
+const calculatePeakArea = (_fit: ReturnType<typeof fitGaussian> | ReturnType<typeof fitLorentzian>) => {
   // Implementation of peak area calculation
   return 1.0;
 };

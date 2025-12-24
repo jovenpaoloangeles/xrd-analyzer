@@ -14,7 +14,7 @@ interface DataInputProps {
   onAddReference: () => void;
 }
 
-export const DataInput: React.FC<DataInputProps> = ({ onDataLoaded, hasSample, hasReference, onAddSample, onAddReference }) => {
+export const DataInput: React.FC<DataInputProps> = ({ onDataLoaded }) => {
   const { showNotification } = useNotification();
   const [showSampleUpload, setShowSampleUpload] = React.useState(false);
   const [showReferenceUpload, setShowReferenceUpload] = React.useState(false);
@@ -51,14 +51,6 @@ export const DataInput: React.FC<DataInputProps> = ({ onDataLoaded, hasSample, h
   );
 
   // Handler wrappers for add buttons
-  const handleAddSample = () => {
-    setShowSampleUpload(true);
-    if (onAddSample) onAddSample();
-  };
-  const handleAddReference = () => {
-    setShowReferenceUpload(true);
-    if (onAddReference) onAddReference();
-  };
 
   // Hide drop zone after upload
   const handleFileInternal = useCallback((file: File, type: 'sample' | 'reference') => {
