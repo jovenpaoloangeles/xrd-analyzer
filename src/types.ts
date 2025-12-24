@@ -57,4 +57,8 @@ export interface ProcessingParams {
     useMinDistance: boolean;
     useMinProminence: boolean;
   };
+  comparison: {
+    mode: 'overlay' | 'waterfall';
+    offset: number;
+  };
 }
