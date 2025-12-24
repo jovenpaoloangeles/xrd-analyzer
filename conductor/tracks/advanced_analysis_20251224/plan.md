@@ -2,13 +2,13 @@
 
 This plan outlines the steps for migrating to shadcn Base UI and implementing advanced XRD features (Multi-pattern comparison and Rietveld refinement).
 
-## Phase 1: Infrastructure & Base UI Migration
+## Phase 1: Infrastructure & Base UI Migration [checkpoint: 0acf35a]
 - [x] Task: Install shadcn Base UI and necessary dependencies. b59356b
 - [x] Task: Migrate `Tooltip` components from Radix to Base UI. 03c2dbc
 - [x] Task: Migrate `Checkbox` and `Dropdown` components to Base UI. ab8f8d0
 - [x] Task: Migrate `Dialog` (if any) and `Tabs` to Base UI. (Verified none present)
 - [x] Task: Verify UI consistency and accessibility after migration.
-- [ ] Task: Conductor - User Manual Verification 'Infrastructure & Base UI Migration' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Infrastructure & Base UI Migration' (Protocol in workflow.md)
 
 ## Phase 2: Multiple Pattern Comparison (Visualization)
 - [ ] Task: Update `types.ts` to support multi-dataset display settings (offset, mode).
