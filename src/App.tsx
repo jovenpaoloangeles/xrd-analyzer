@@ -30,6 +30,10 @@ const defaultProcessingParams: ProcessingParams = {
     useMinDistance: false,
     useMinProminence: false,
   },
+  comparison: {
+    mode: 'overlay',
+    offset: 50,
+  },
 };
 
 // Paul Tol's bright color-blind safe palette
@@ -172,7 +176,7 @@ function App() {
                   <div className="mb-6 relative">
                     <h3 className="text-lg font-semibold mb-2">XRD Pattern</h3>
                     <div className="md:col-span-2 col-span-1 relative">
-                      <XRDChartPlotly datasets={datasets.filter(d => d.visible)} peakMatches={peakMatches} />
+                      <XRDChartPlotly datasets={datasets.filter(d => d.visible)} peakMatches={peakMatches} params={processingParams} />
                       {loading && (
                         <div className="absolute inset-0 flex items-center justify-center bg-white/60 z-20">
                           <Loader2 className="animate-spin w-16 h-16 text-primary" />

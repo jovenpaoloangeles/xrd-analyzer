@@ -1,29 +1,36 @@
 import React from 'react';
 import Plot from 'react-plotly.js';
-import { DataSet } from '../types';
+import { DataSet, ProcessingParams } from '../types';
 
 import { PeakMatch } from '../utils/peakMatching';
 
 interface XRDChartPlotlyProps {
   datasets: DataSet[];
   peakMatches?: PeakMatch[];
+  params: ProcessingParams;
 }
 
-export const XRDChartPlotly: React.FC<XRDChartPlotlyProps> = ({ datasets, peakMatches }) => {
+export const XRDChartPlotly: React.FC<XRDChartPlotlyProps> = ({ datasets, peakMatches, params }) => {
   // Using dataset colors assigned in App.tsx (Paul Tol's color-blind safe palette)
   // Prepare traces for each dataset
   // Use generic object typing for Plotly traces to avoid type errors
   // Create traces array for all datasets and their peaks
   const traces: Array<Partial<Record<string, any>>> = [];
   
+  const isWaterfall = params.comparison.mode === 'waterfall';
+  const offsetValue = params.comparison.offset;
+
   // Process each dataset and immediately add its peaks
   datasets.forEach((dataset, index) => {
     // Use the dataset's original color
     const color = dataset.color;
     if (!dataset.visible) return;
     
+    // Calculate vertical offset for waterfall mode
+    const currentOffset = isWaterfall ? index * offsetValue : 0;
+
     const x = dataset.data.map(d => d.angle);
-    const y = dataset.data.map(d => d.backgroundSubtracted ?? d.intensity);
+    const y = dataset.data.map(d => (d.backgroundSubtracted ?? d.intensity) + currentOffset);
     
     // Create a unique group name for this dataset and its peaks
     const groupName = `dataset-${index}`;
@@ -43,7 +50,7 @@ export const XRDChartPlotly: React.FC<XRDChartPlotlyProps> = ({ datasets, peakMa
     if (dataset.peaks && dataset.peaks.length > 0) {
       traces.push({
         x: dataset.peaks.map(p => p.angle),
-        y: dataset.peaks.map(p => p.intensity),
+        y: dataset.peaks.map(p => p.intensity + currentOffset),
         mode: 'markers',
         type: 'scatter',
         name: 'Peaks',
@@ -62,9 +69,17 @@ export const XRDChartPlotly: React.FC<XRDChartPlotlyProps> = ({ datasets, peakMa
 
   // Add matched peaks as markers (if any)
   if (peakMatches && peakMatches.length > 0) {
+    // Note: Matched peaks logic might need adjustment if sample/ref have different offsets
+    // For now, let's keep them at original intensity or adjust if needed.
+    // Usually, matched peaks are shown on the sample.
     traces.push({
       x: peakMatches.map(m => m.samplePeak.angle),
-      y: peakMatches.map(m => m.samplePeak.intensity),
+      y: peakMatches.map(m => {
+        // Find dataset index to apply same offset
+        const dsIndex = datasets.findIndex(ds => ds.name === m.sampleDataset);
+        const currentOffset = (isWaterfall && dsIndex !== -1) ? dsIndex * offsetValue : 0;
+        return m.samplePeak.intensity + currentOffset;
+      }),
       mode: 'markers',
       type: 'scatter',
       name: 'Matched Peaks',
