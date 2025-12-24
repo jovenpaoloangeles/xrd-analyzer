@@ -14,7 +14,7 @@ This plan outlines the steps for migrating to shadcn Base UI and implementing ad
 - [x] Task: Update `types.ts` to support multi-dataset display settings (offset, mode). 96d9d49
 - [x] Task: Implement 'Overlay' vs 'Waterfall' logic in `XRDChartPlotly.tsx`. 637251f
 - [x] Task: Add UI controls for Comparison Mode and Y-Offset in `ProcessingControls.tsx`. 92027c4
-- [ ] Task: Write tests for data offset calculation logic.
+- [x] Task: Write tests for data offset calculation logic. 2993883
 - [ ] Task: Conductor - User Manual Verification 'Multiple Pattern Comparison' (Protocol in workflow.md)
 
 ## Phase 3: Rietveld Refinement - Data & Solver Setup
