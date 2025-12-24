@@ -3,7 +3,7 @@
 This plan outlines the steps to implement background subtraction, smoothing, and peak detection.
 
 ## Phase 1: Foundational Processing Utilities
-- [ ] Task: Implement background subtraction utility function.
+- [x] Task: Implement background subtraction utility function. a6fd1e4
 - [ ] Task: Implement Savitzky-Golay smoothing utility function.
 - [ ] Task: Write unit tests for background subtraction and smoothing logic.
 - [ ] Task: Conductor - User Manual Verification 'Foundational Processing Utilities' (Protocol in workflow.md)
