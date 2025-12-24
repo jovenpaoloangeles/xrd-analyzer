@@ -24,9 +24,9 @@ This plan outlines the steps for migrating to shadcn Base UI and implementing ad
 - [x] Task: Write unit tests for the XRD profile calculation engine. 60ecfbc
 - [x] Task: Conductor - User Manual Verification 'Rietveld Refinement - Data & Solver Setup' (Protocol in workflow.md)
 
-## Phase 4: Rietveld Refinement - Implementation & UI
+## Phase 4: Rietveld Refinement - Implementation & UI [checkpoint: 55dcbc3]
 - [x] Task: Implement the refinement solver using `ml-levenberg-marquardt` (Lattice, Scale, Atomic Positions). f86075d
 - [x] Task: Add UI for refinement configuration (selecting parameters to refine). 7650149
 - [x] Task: Update `XRDChartPlotly.tsx` to display calculated profile and difference plot. 551371b
 - [x] Task: Write integration tests for the full refinement flow. f5c9e5f
-- [ ] Task: Conductor - User Manual Verification 'Rietveld Refinement - Implementation & UI' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Rietveld Refinement - Implementation & UI' (Protocol in workflow.md)
